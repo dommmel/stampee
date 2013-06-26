@@ -12,49 +12,106 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title></title>
-
-
-  
-  <!-- <script src="http://www.parsecdn.com/js/parse-1.2.8.min.js"></script> -->
-
+  <link rel="stylesheet" type="text/css" href="/stampee/assets/app-23946aac7930899662cc737fe348e70d.css">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <script src="http://www.parsecdn.com/js/parse-1.2.8.min.js"></script>
+
  
 </head>
 <body>
 
- <a href="./pages/0/"><img src="./thumbs/thumb_0.gif"/></a>
+<div class="thumbnail" id="page_0">
+  <a href="./pages/0/"><img src="./thumbs/thumb_0.gif"/></a>
+</div>
 
- <a href="./pages/1/"><img src="./thumbs/thumb_1.gif"/></a>
+<div class="thumbnail" id="page_1">
+  <a href="./pages/1/"><img src="./thumbs/thumb_1.gif"/></a>
+</div>
 
- <a href="./pages/2/"><img src="./thumbs/thumb_2.gif"/></a>
+<div class="thumbnail" id="page_2">
+  <a href="./pages/2/"><img src="./thumbs/thumb_2.gif"/></a>
+</div>
 
- <a href="./pages/3/"><img src="./thumbs/thumb_3.gif"/></a>
+<div class="thumbnail" id="page_3">
+  <a href="./pages/3/"><img src="./thumbs/thumb_3.gif"/></a>
+</div>
 
- <a href="./pages/4/"><img src="./thumbs/thumb_4.gif"/></a>
+<div class="thumbnail" id="page_4">
+  <a href="./pages/4/"><img src="./thumbs/thumb_4.gif"/></a>
+</div>
 
- <a href="./pages/5/"><img src="./thumbs/thumb_5.gif"/></a>
+<div class="thumbnail" id="page_5">
+  <a href="./pages/5/"><img src="./thumbs/thumb_5.gif"/></a>
+</div>
 
- <a href="./pages/6/"><img src="./thumbs/thumb_6.gif"/></a>
+<div class="thumbnail" id="page_6">
+  <a href="./pages/6/"><img src="./thumbs/thumb_6.gif"/></a>
+</div>
 
- <a href="./pages/7/"><img src="./thumbs/thumb_7.gif"/></a>
+<div class="thumbnail" id="page_7">
+  <a href="./pages/7/"><img src="./thumbs/thumb_7.gif"/></a>
+</div>
 
- <a href="./pages/8/"><img src="./thumbs/thumb_8.gif"/></a>
+<div class="thumbnail" id="page_8">
+  <a href="./pages/8/"><img src="./thumbs/thumb_8.gif"/></a>
+</div>
 
- <a href="./pages/9/"><img src="./thumbs/thumb_9.gif"/></a>
+<div class="thumbnail" id="page_9">
+  <a href="./pages/9/"><img src="./thumbs/thumb_9.gif"/></a>
+</div>
 
- <a href="./pages/10/"><img src="./thumbs/thumb_10.gif"/></a>
+<div class="thumbnail" id="page_10">
+  <a href="./pages/10/"><img src="./thumbs/thumb_10.gif"/></a>
+</div>
 
- <a href="./pages/11/"><img src="./thumbs/thumb_11.gif"/></a>
+<div class="thumbnail" id="page_11">
+  <a href="./pages/11/"><img src="./thumbs/thumb_11.gif"/></a>
+</div>
 
- <a href="./pages/12/"><img src="./thumbs/thumb_12.gif"/></a>
+<div class="thumbnail" id="page_12">
+  <a href="./pages/12/"><img src="./thumbs/thumb_12.gif"/></a>
+</div>
 
- <a href="./pages/13/"><img src="./thumbs/thumb_13.gif"/></a>
+<div class="thumbnail" id="page_13">
+  <a href="./pages/13/"><img src="./thumbs/thumb_13.gif"/></a>
+</div>
 
- <a href="./pages/14/"><img src="./thumbs/thumb_14.gif"/></a>
+<div class="thumbnail" id="page_14">
+  <a href="./pages/14/"><img src="./thumbs/thumb_14.gif"/></a>
+</div>
 
- <a href="./pages/15/"><img src="./thumbs/thumb_15.gif"/></a>
+<div class="thumbnail" id="page_15">
+  <a href="./pages/15/"><img src="./thumbs/thumb_15.gif"/></a>
+</div>
 
- <a href="./pages/16/"><img src="./thumbs/thumb_16.gif"/></a>
+<div class="thumbnail" id="page_16">
+  <a href="./pages/16/"><img src="./thumbs/thumb_16.gif"/></a>
+</div>
+
+
+<script type="text/javascript">
+Parse.$ = jQuery;
+Parse.initialize("DON4mTu8KCYPdINYljtroXqtGcQAF6oTlmIwrjHZ", "QGZFPe1NZlUC90fWVAcVScIx2tVWXIyMd8yPkBGR");
+var Annotation = Parse.Object.extend("Annotation");
+var query = new Parse.Query(Annotation);
+query.startsWith("context", window.location.origin+window.location.pathname);
+query.find({
+  success: function(comments) {
+
+    //TODO: backbone-ify
+    var counter = { };
+    $.each(comments, function(index, comment) {
+      var pageId = comment.get("context").split("/").slice(-2)[0];
+      counter[pageId] = (counter[pageId] || 0) + 1
+      var text = comment.get("text");
+      //$("#page_"+pageId).append("<br/>"+text + " Src:" + comment.get("context"));
+    });
+    $.each(counter, function(key, value){
+      $("#page_"+key).append('<div class="noti_bubble">' + value+ '</div>');
+    });
+  }
+});
+</script>
 
 </body>
 </html>
