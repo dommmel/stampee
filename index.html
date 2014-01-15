@@ -94,17 +94,23 @@ Parse.$ = jQuery;
 Parse.initialize("DON4mTu8KCYPdINYljtroXqtGcQAF6oTlmIwrjHZ", "QGZFPe1NZlUC90fWVAcVScIx2tVWXIyMd8yPkBGR");
 var Annotation = Parse.Object.extend("Annotation");
 var query = new Parse.Query(Annotation);
-query.startsWith("context", window.location.origin+window.location.pathname);
+query.startsWith(
+  "context",
+  (window.location.origin+window.location.pathname).split('index.html')[0]
+);
 query.find({
   success: function(comments) {
 
     //TODO: backbone-ify
     var counter = { };
     $.each(comments, function(index, comment) {
-      var pageId = comment.get("context").split("/").slice(-2)[0];
-      counter[pageId] = (counter[pageId] || 0) + 1
-      var text = comment.get("text");
-      //$("#page_"+pageId).append("<br/>"+text + " Src:" + comment.get("context"));
+
+      // extract the pageID from the context string
+      var _validContext = comment.get("context").split("/pages/")[1]
+      if (_validContext) {
+        var pageId = _validContext.split("/")[0];
+        counter[pageId] = (counter[pageId] || 0) + 1
+      }
     });
     $.each(counter, function(key, value){
       $("#page_"+key).append('<div class="noti_bubble">' + value+ '</div>');
